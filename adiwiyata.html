@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Penilaian Festival Kelas Adiwiyata (Multi-Penilai)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+        /* Hide number input arrows */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] { -moz-appearance: textfield; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-5xl">
+        
+        <header class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-teal-600">Formulir Penilaian Festival Kelas Adiwiyata</h1>
+            <p class="text-gray-600 mt-2">Dirancang untuk 3 penilai. Nilai akhir dihitung dari rata-rata skor.</p>
+        </header>
+
+        <div class="bg-white p-6 rounded-xl shadow-md mb-8">
+            <h2 class="text-2xl font-semibold mb-4 border-b pb-2 text-teal-700">Informasi Umum & Penilai</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+                <div>
+                    <label for="kelas" class="block text-sm font-medium text-gray-700">Kelas:</label>
+                    <input type="text" id="kelas" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm" placeholder="Contoh: 7A">
+                </div>
+                <div>
+                    <label for="wali_kelas" class="block text-sm font-medium text-gray-700">Wali Kelas:</label>
+                    <input type="text" id="wali_kelas" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm" placeholder="Nama Wali Kelas">
+                </div>
+                <div>
+                    <label for="penilai1" class="block text-sm font-medium text-gray-700">Penilai 1:</label>
+                    <input type="text" id="penilai1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm" placeholder="Nama Penilai 1">
+                </div>
+                 <div>
+                    <label for="penilai2" class="block text-sm font-medium text-gray-700">Penilai 2:</label>
+                    <input type="text" id="penilai2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm" placeholder="Nama Penilai 2">
+                </div>
+                 <div>
+                    <label for="penilai3" class="block text-sm font-medium text-gray-700">Penilai 3:</label>
+                    <input type="text" id="penilai3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm" placeholder="Nama Penilai 3">
+                </div>
+                <div>
+                    <label for="tanggal" class="block text-sm font-medium text-gray-700">Tanggal Penilaian:</label>
+                    <input type="date" id="tanggal" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm">
+                </div>
+            </div>
+        </div>
+
+        <div class="space-y-8">
+            <!-- Helper function to generate item rows -->
+            <script>
+                const sections = {
+                    a: {
+                        title: 'A. Dalam Kelas',
+                        items: [
+                            '1. Jadwal Kebersihan/Penyiraman/Perawatan (min. 5 anak, diketahui Wali Kelas).',
+                            '2. Papan Informasi Kelas / Pengumuman.',
+                            '3. Struktur Kepengurusan Kelas.',
+                            '4. Rak Sepatu.',
+                            '5. Tata Tertib Siswa.',
+                            '6. 3 Bunga Hidup yang bisa mengharumkan Ruangan Kelas.',
+                            '7. 2 buah alat Penyiram Tanaman.',
+                            '8. 2 buah Sapu Lantai.',
+                            '9. 2 buah Pel Lantai.',
+                        ]
+                    },
+                    b: {
+                        title: 'B. Luar Kelas',
+                        items: [
+                            '1. 6 buah Pot kecil & bunga gantung dari botol bekas (isi Bunga Hidup merambat).',
+                            '2. 4 buah Pot Besar & bunga besar dari botol bekas Le Minerale (Bunga Hidup rimbun).',
+                            '3. 4 buah Pot sedang dan isi Tanaman Obat Keluarga (TOGA).',
+                            '4. 3 buah Poster (Hemat air, Hemat Energi, dan Kebersihan).',
+                            '5. 1 buah Tempat sampah basah.',
+                            '6. 1 buah Tempat sampah plastik/Botol/Gelas.',
+                        ]
+                    },
+                    c: {
+                        title: 'C. Umum',
+                        items: [
+                            '1. Pembuatan Karya Seni dari Barang Bekas.',
+                            '2. Pembuatan Mading Adiwiyata.',
+                        ]
+                    }
+                };
+
+                function createItemRow(itemText, section) {
+                    return `
+                    <div class="item-row grid grid-cols-1 md:grid-cols-2 items-center gap-4 py-3 px-2 rounded-lg hover:bg-gray-50 border-b" data-section="${section}">
+                        <label class="text-sm md:text-base">${itemText}</label>
+                        <div class="grid grid-cols-4 gap-x-2 md:gap-x-4 items-center">
+                            <input type="number" min="1" max="4" class="score-input w-full text-center rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" placeholder="P1">
+                            <input type="number" min="1" max="4" class="score-input w-full text-center rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" placeholder="P2">
+                            <input type="number" min="1" max="4" class="score-input w-full text-center rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" placeholder="P3">
+                            <div class="text-center bg-gray-100 p-2 rounded-md">
+                                <p class="text-xs text-gray-500">Rata-rata</p>
+                                <p class="avg-score font-bold text-teal-600 text-lg">0.0</p>
+                            </div>
+                        </div>
+                    </div>`;
+                }
+            </script>
+
+            <!-- A. DALAM KELAS -->
+            <div class="bg-white p-6 rounded-xl shadow-md">
+                <h3 class="text-2xl font-semibold mb-2 text-teal-700">A. Dalam Kelas</h3>
+                <div class="space-y-2" id="section-a-items">
+                    <script>
+                        document.getElementById('section-a-items').innerHTML = sections.a.items.map(item => createItemRow(item, 'a')).join('');
+                    </script>
+                </div>
+            </div>
+
+            <!-- B. LUAR KELAS -->
+            <div class="bg-white p-6 rounded-xl shadow-md">
+                <h3 class="text-2xl font-semibold mb-2 text-teal-700">B. Luar Kelas</h3>
+                <div class="space-y-2" id="section-b-items">
+                    <script>
+                        document.getElementById('section-b-items').innerHTML = sections.b.items.map(item => createItemRow(item, 'b')).join('');
+                    </script>
+                </div>
+            </div>
+
+            <!-- C. UMUM -->
+            <div class="bg-white p-6 rounded-xl shadow-md">
+                <h3 class="text-2xl font-semibold mb-2 text-teal-700">C. Umum</h3>
+                <div class="space-y-2" id="section-c-items">
+                    <script>
+                        document.getElementById('section-c-items').innerHTML = sections.c.items.map(item => createItemRow(item, 'c')).join('');
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white mt-8 p-6 rounded-xl shadow-lg sticky bottom-4 border-2 border-teal-500">
+             <h3 class="text-2xl font-semibold mb-4 text-center text-teal-700">Rekapitulasi Skor</h3>
+             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <div class="bg-teal-50 p-4 rounded-lg">
+                    <p class="text-sm text-gray-600">Subtotal A (Rata-rata)</p>
+                    <p id="subtotal-a" class="text-2xl font-bold text-teal-600">0.0</p>
+                </div>
+                 <div class="bg-teal-50 p-4 rounded-lg">
+                    <p class="text-sm text-gray-600">Subtotal B (Rata-rata)</p>
+                    <p id="subtotal-b" class="text-2xl font-bold text-teal-600">0.0</p>
+                </div>
+                 <div class="bg-teal-50 p-4 rounded-lg">
+                    <p class="text-sm text-gray-600">Subtotal C (Rata-rata)</p>
+                    <p id="subtotal-c" class="text-2xl font-bold text-teal-600">0.0</p>
+                </div>
+                 <div class="bg-blue-50 p-4 rounded-lg col-span-2 md:col-span-1">
+                    <p class="text-sm text-gray-600">Total Skor (Rata-rata)</p>
+                    <p id="total-score" class="text-2xl font-bold text-blue-600">0.0</p>
+                </div>
+             </div>
+             <div class="mt-6 bg-green-100 p-4 rounded-lg text-center">
+                 <p class="text-lg font-medium text-green-800">Nilai Akhir</p>
+                 <p id="final-grade" class="text-5xl font-bold text-green-600 mt-1">0.00</p>
+                 <p class="text-sm text-gray-500 mt-2">(Skor Maksimal: 68)</p>
+             </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const subtotalAEl = document.getElementById('subtotal-a');
+            const subtotalBEl = document.getElementById('subtotal-b');
+            const subtotalCEl = document.getElementById('subtotal-c');
+            const totalScoreEl = document.getElementById('total-score');
+            const finalGradeEl = document.getElementById('final-grade');
+
+            const MAX_SCORE = 68; // 17 items * max average score of 4
+
+            function calculateScores() {
+                let subtotalA = 0;
+                let subtotalB = 0;
+                let subtotalC = 0;
+
+                const itemRows = document.querySelectorAll('.item-row');
+
+                itemRows.forEach(row => {
+                    const inputs = row.querySelectorAll('.score-input');
+                    const avgEl = row.querySelector('.avg-score');
+                    const section = row.getAttribute('data-section');
+
+                    let sum = 0;
+                    let count = 0;
+
+                    inputs.forEach(input => {
+                        const value = parseInt(input.value);
+                        if (value < 1 && input.value !== '') input.value = 1;
+                        if (value > 4) input.value = 4;
+                        
+                        const finalValue = parseInt(input.value) || 0;
+                        if (finalValue > 0) {
+                            sum += finalValue;
+                            count++;
+                        }
+                    });
+
+                    const average = count > 0 ? sum / count : 0;
+                    
+                    if(avgEl) {
+                        avgEl.textContent = average.toFixed(1);
+                    }
+
+                    if (section === 'a') subtotalA += average;
+                    else if (section === 'b') subtotalB += average;
+                    else if (section === 'c') subtotalC += average;
+                });
+
+                const totalScore = subtotalA + subtotalB + subtotalC;
+                const finalGrade = (totalScore / MAX_SCORE) * 100;
+
+                subtotalAEl.textContent = subtotalA.toFixed(1);
+                subtotalBEl.textContent = subtotalB.toFixed(1);
+                subtotalCEl.textContent = subtotalC.toFixed(1);
+                totalScoreEl.textContent = totalScore.toFixed(1);
+                finalGradeEl.textContent = finalGrade.toFixed(2);
+            }
+
+            // Must use event delegation since items are added dynamically
+            document.body.addEventListener('input', (event) => {
+                if (event.target.classList.contains('score-input')) {
+                    calculateScores();
+                }
+            });
+
+            // Initial calculation
+            calculateScores();
+        });
+    </script>
+
+</body>
+</html>
+
